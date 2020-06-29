@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Exercise</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <h1 class="text-center">GitHub User Repositories!<title> </title></h1>
+</head>
+<body>
+<div class="col-sm-16">
+
+    <h2 style="color:black;font-size:18px;text-align:center">
+        <p><input type="text" id="username" value="insert username"</p>
+        <br>
+        <br> <!--  pone 1 espacios por BR        -->
+        <button id= "boton_repos">Show repositories</button>
+        <br>
+    </h2>
+
+    <br>
+    <body style="background-color:rgba(123,210,100,0);">
+    </body>
+
+
+    <table class="table table-striped"  >
+        <thead>
+        <tr>
+
+            <th>Username </th>
+            <th>Name of repository</th>
+            <th>Description</th>
+            <th>Followers</th>
+
+
+        </tr>
+        </thead>
+        <tbody id="table" >
+        </tbody>
+    </table>
+
+
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $("button").click(function(){
+            $("#table").html(""); //tabla vacia
+            var usuario = $("#username").val();
+            $.ajax({
+                type:'GET',
+                url:'https://api.github.com/users/'+ usuario +'/repos',
+                dataType: 'json',
+                success: function(data){
+                    $.each(data, function(index, data){		//	para cada uno de TODOS los 																datos del json
+                        $("#table").append("<tr><td>" + usuario + "</td><td>" + data.name + "						</td><td>" + data.description + "</td><td>" + data.stargazers_count + 						"</td></tr>");
+                    });//https://api.github.com/users/"USERNAMEHERE"/repos
+                    //Ahi podemos localizar todos los parametros disponibles a utilizar
+                }
+            })
+        });
+    });
+</script>
+
+
+
+
+</div>
+
+
+</head>
+<body>
+
+</div>
